@@ -9,7 +9,7 @@ Companion repository for the **[f01 — The Terminal](https://thecodingidiot.com
 You are working through the implementation pages. Use the tester to verify your work after completing the challenges.
 
 ```bash
-git clone https://github.com/dimitrios-git/f01-the-terminal.git
+git clone https://github.com/thecodingidiot-com/f01-the-terminal.git
 cd f01-the-terminal
 bash test.sh
 ```
@@ -23,7 +23,7 @@ The tester is stateful — it remembers which challenges you have passed. Run it
 You built it independently. Run the tester to check your solution against the project brief:
 
 ```bash
-git clone https://github.com/dimitrios-git/f01-the-terminal.git
+git clone https://github.com/thecodingidiot-com/f01-the-terminal.git
 cd f01-the-terminal
 bash test.sh
 ```
