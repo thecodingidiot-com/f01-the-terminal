@@ -310,13 +310,13 @@ solution() {
     case "$num" in
         1)
             cat <<SOLUTION
-cd $SCRATCH/project/src
+cd "$SCRATCH/project/src"
 touch main.c
 SOLUTION
             ;;
         2)
             cat <<SOLUTION
-cd $SCRATCH/project/src
+cd "$SCRATCH/project/src"
 cp original.txt backup.txt
 mv backup.txt backup.txt.bak
 rm original.txt
@@ -324,36 +324,36 @@ SOLUTION
             ;;
         3)
             cat <<SOLUTION
-echo '#!/bin/bash' > $SCRATCH/greet.sh
-echo 'echo hello' >> $SCRATCH/greet.sh
-chmod +x $SCRATCH/greet.sh
-$SCRATCH/greet.sh
+echo '#!/bin/bash' > "$SCRATCH/greet.sh"
+echo 'echo hello' >> "$SCRATCH/greet.sh"
+chmod +x "$SCRATCH/greet.sh"
+"$SCRATCH/greet.sh"
 SOLUTION
             ;;
         4)
             cat <<SOLUTION
-grep 'ERROR' $SCRATCH/logs/app.log > $SCRATCH/errors.txt
+grep 'ERROR' "$SCRATCH/logs/app.log" > "$SCRATCH/errors.txt"
 SOLUTION
             ;;
         5)
             cat <<SOLUTION
-find $SCRATCH -name '*.log' | sort > $SCRATCH/logfiles.txt
+find "$SCRATCH" -name '*.log' | sort > "$SCRATCH/logfiles.txt"
 SOLUTION
             ;;
         6)
             cat <<SOLUTION
-cat $SCRATCH/logs/app.log | grep 'ERROR' | sort | uniq > $SCRATCH/unique-errors.txt
+cat "$SCRATCH/logs/app.log" | grep 'ERROR' | sort | uniq > "$SCRATCH/unique-errors.txt"
 SOLUTION
             ;;
         7)
             cat <<SOLUTION
-echo 'session closed' >> $SCRATCH/session.log
+echo 'session closed' >> "$SCRATCH/session.log"
 SOLUTION
             ;;
         8)
             local bg_pid
             bg_pid=$(cat "$BG_PID_FILE" 2>/dev/null)
-            if [ -z "$bg_pid" ]; then
+            if [[ -z "$bg_pid" ]]; then
                 echo "# Run ./test.sh first to start the background process, then check the PID."
             else
                 cat <<SOLUTION
@@ -370,12 +370,12 @@ SOLUTION
         10)
             cat <<SOLUTION
 # vim (interactive — cannot be piped to bash, run manually):
-vi $SCRATCH/vim-test.txt
+vi "$SCRATCH/vim-test.txt"
 # :%s/PLACEHOLDER/COMPLETE/
 # :wq
 
 # sed (non-interactive, can be piped to bash):
-sed -i 's/PLACEHOLDER/COMPLETE/' $SCRATCH/vim-test.txt
+sed -i 's/PLACEHOLDER/COMPLETE/' "$SCRATCH/vim-test.txt"
 SOLUTION
             ;;
         11)
@@ -423,7 +423,7 @@ celebrate() {
 # ─────────────────────────────────────────────────────────────────────────────
 
 # Handle --help
-if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+if [[ "$1" = "--help" || "$1" = "-h" ]]; then
     cat <<'HELP'
 Usage: ./test.sh [OPTION]
 
@@ -448,8 +448,8 @@ HELP
 fi
 
 # Handle --solution flag: show solution for a specific challenge
-if [ "$1" = "--solution" ]; then
-    if [ -z "$2" ] || ! [[ "$2" =~ ^[0-9]+$ ]] || [ "$2" -lt 1 ] || [ "$2" -gt 11 ]; then
+if [[ "$1" = "--solution" ]]; then
+    if [[ -z "$2" ]] || ! [[ "$2" =~ ^[0-9]+$ ]] || [ "$2" -lt 1 ] || [ "$2" -gt 11 ]; then
         echo "Usage: ./test.sh --solution <N>  (where N is 1-11)"
         exit 1
     fi
@@ -458,7 +458,7 @@ if [ "$1" = "--solution" ]; then
 fi
 
 # Handle --reset
-if [ "$1" = "--reset" ]; then
+if [[ "$1" = "--reset" ]]; then
     if [ -f "$BG_PID_FILE" ]; then
         kill "$(cat "$BG_PID_FILE")" 2>/dev/null
     fi
@@ -468,7 +468,7 @@ if [ "$1" = "--reset" ]; then
 fi
 
 # Reject unknown flags
-if [ -n "$1" ]; then
+if [[ -n "$1" ]]; then
     echo "Unknown option: $1"
     echo "Run ./test.sh --help for usage."
     exit 1
